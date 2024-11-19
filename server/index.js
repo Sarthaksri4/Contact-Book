@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const authRoutes = require("./routes/auth");
+const contactRoutes = require("./routes/contact")
+
 
 const createClient = require("./config/db");
 
@@ -14,7 +16,8 @@ let conn;
     console.error("Error initializing database client:", err);
   }
   finally{
-    const data = await conn.execute('select * from contacts')
+    
+    const data = await conn.execute('select * from otps')
     console.log(data);
     
   }
@@ -27,6 +30,8 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/contacts", contactRoutes);
+
 
 
 app.listen(3000, () => {

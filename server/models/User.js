@@ -13,13 +13,13 @@ let conn;
 
 
 async function findUserByEmail(email) {
-  const [rows] = await conn.query("SELECT * FROM contacts WHERE email = ?", [email]);
+  const [rows] = await conn.query("SELECT * FROM auth WHERE email = ?", [email]);
   return rows.length > 0 ? rows[0] : null;
 }
 
 // Create a new user
 async function createUser(email, password) {
-  await conn.query("INSERT INTO contacts (email, password) VALUES (?, ?)", [
+  await conn.query("INSERT INTO auth (email, password) VALUES (?, ?)", [
     email,
     password,
   ]);
