@@ -2,7 +2,10 @@ const express = require("express");
 const app = express();
 const authRoutes = require("./routes/auth");
 const contactRoutes = require("./routes/contact")
+const cors = require("cors");
 
+
+app.use(cors());
 
 const createClient = require("./config/db");
 
@@ -17,8 +20,8 @@ let conn;
   }
   finally{
     
-    const data = await conn.execute('select * from otps')
-    console.log(data);
+    // const data = await conn.execute('select * from otps')
+    // console.log(data);
     
   }
 })();

@@ -1,24 +1,27 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Replace Switch with Routes
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ContactList from './components/ContactList';
+import AddContact from './components/AddContact';
+import EditContact from './components/EditContact';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import ProtectedRoute from './utils/PrivateRoute';
+import './index.css';
 
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import ResetPassword from './components/Auth/ResetPassword';
-import ContactList from './components/Contact/ContactList';
-
-const App = () => {
+function App() {
   return (
-    <Router>
-      <Routes> {/* Replace Switch with Routes */}
+  
+      <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/contacts" element={<ContactList />} />
-        {/* Add more routes as needed */}
+        <Route path="/" element={<Signup />} />
+        
+        <Route path="/" element={<ProtectedRoute><ContactList /></ProtectedRoute>} />
+        <Route path="/contacts" element={<ProtectedRoute><ContactList /></ProtectedRoute>} />
+        <Route path="/add" element={<ProtectedRoute><AddContact /></ProtectedRoute>} />
+        <Route path="/edit/:id" element={<ProtectedRoute><EditContact /></ProtectedRoute>} />
       </Routes>
-    </Router>
+  
   );
-};
+}
 
 export default App;
