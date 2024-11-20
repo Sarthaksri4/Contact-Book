@@ -13,6 +13,7 @@ const AddContact = () => {
     address: "",
   });
 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,10 +24,27 @@ const AddContact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/contacts", contact);
-      navigate("/");
+      // Ensure required fields are filled
+      if (!contact.firstname || !contact.email || !contact.phonenumber1) {
+        setError("Please fill in all required fields.");
+        return;
+      }
+      setError(null); // Clear previous errors
+
+      // Add the contact
+      const response = await axios.post(
+        "http://localhost:3000/api/contacts/add",
+        contact,
+        { withCredentials: true }
+      );
+
+      console.log("Contact added successfully:", response.data);
+
+      // Redirect to the /contacts page
+      navigate("/contacts", { state: { reloadContacts: true } });
     } catch (error) {
       console.error("Error adding contact", error);
+      setError("Failed to add contact. Please try again.");
     }
   };
 
@@ -37,14 +55,16 @@ const AddContact = () => {
           <h1 className="text-3xl font-bold mb-2">Contact Book Management System</h1>
           <p className="text-sm font-light">Organize your contacts with ease</p>
         </div>
-        
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="firstname"
             value={contact.firstname}
             onChange={handleChange}
-            placeholder="First Name"
+            placeholder="First Name *"
             className="w-full p-2 mb-2 border border-gray-300 rounded"
           />
           <input
@@ -68,7 +88,7 @@ const AddContact = () => {
             name="email"
             value={contact.email}
             onChange={handleChange}
-            placeholder="Email"
+            placeholder="Email *"
             className="w-full p-2 mb-2 border border-gray-300 rounded"
           />
           <input
@@ -76,7 +96,7 @@ const AddContact = () => {
             name="phonenumber1"
             value={contact.phonenumber1}
             onChange={handleChange}
-            placeholder="Phone Number 1"
+            placeholder="Phone Number 1 *"
             className="w-full p-2 mb-2 border border-gray-300 rounded"
           />
           <input

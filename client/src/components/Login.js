@@ -17,7 +17,8 @@ const Login = () => {
       alert("Login successful!");
       navigate("/contacts");
     } catch (error) {
-      alert("Login failed. Check your credentials.");
+      // alert("Login failed. Check your credentials.");
+      alert(error);
     }
   };
 
@@ -29,6 +30,7 @@ const Login = () => {
       </div>
       <div className="p-6 rounded shadow-md w-96" style={{ backgroundColor: "#31527c" }}>
         <h2 className="text-xl font-bold mb-4 text-center text-white">Login</h2>
+
         <input
           type="email"
           name="email"
