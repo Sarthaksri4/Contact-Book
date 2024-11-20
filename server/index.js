@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 
 const corsOptions = {
-  origin: "*",
+  origin: ["http://contact-book-sarthak.s3-website-us-east-1.amazonaws.com"],
   credentials: true, 
 };
 
