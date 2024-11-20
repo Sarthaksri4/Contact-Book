@@ -42,11 +42,4 @@ exports.DeleteContact = async (id) => {
     await conn.query("delete from contacts WHERE contact_id = ?", [id]);
 };
 
-// exports.searchContacts = async (query) => {
-//     const [contacts] = await conn.query(
-//         `SELECT * FROM contacts WHERE 
-//         (firstname LIKE ? OR middlename LIKE ? OR lastname LIKE ? OR email LIKE ? OR phonenumber1 LIKE ? OR phonenumber2 LIKE ? OR address LIKE ?)`,
-//         [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`]
-//     );
-//     return contacts;
-// };
+

@@ -7,6 +7,5 @@ router.post("/add", addContact);
 router.put("/edit/:id", editContact);
 router.get("/", getContacts);
 router.delete("/delete/:id", deleteContact);
-// router.get("/search", searchContact);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// Middleware to check if the JWT token exists in the cookie and is valid
+// check if the JWT token exists in the cookie and is valid
 const auth = (req, res, next) => {
   const token = req.cookies.token;
   
@@ -18,7 +18,6 @@ const auth = (req, res, next) => {
     // Attach the user info to the request object for use in later middleware or route handlers
     req.user_id = decoded.id;
 
-    // Proceed to the next middleware or route handler
     next();
   } catch (error) {
     return res.status(401).json({

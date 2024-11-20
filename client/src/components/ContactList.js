@@ -4,12 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import Search from "./Search";
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState([]);  // State to store contacts
-  const [currentPage, setCurrentPage] = useState(1);  // Pagination state
-  const [searchQuery, setSearchQuery] = useState(""); // For search functionality
-  const location = useLocation(); // For handling re-fetch trigger when added contact
+  const [contacts, setContacts] = useState([]);  
+  const [currentPage, setCurrentPage] = useState(1);  
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const location = useLocation(); 
 
-  // Fetch contacts from the backend
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -23,18 +22,16 @@ const ContactList = () => {
 
     fetchContacts();
 
-    // If reloading contacts after adding a new one (from /add page)
     if (location.state?.reloadContacts) {
-      fetchContacts(); // Re-fetch contacts if redirect state is set
+      fetchContacts(); 
     }
-  }, [location.state]);  // Dependency to trigger re-fetch when 'reloadContacts' state changes
+  }, [location.state]);  
 
   const handleDelete = async (contactId) => {
     const confirmation = window.confirm("Are you sure you want to delete this contact?");
     if (confirmation) {
       try {
         await axios.delete(`https://contact-dtdz.onrender.com/api/contacts/delete/${contactId}`);
-        // Directly remove the deleted contact from the contacts state
         setContacts(contacts.filter((contact) => contact.contact_id !== contactId));
       } catch (error) {
         console.error("Error deleting contact", error);
@@ -42,7 +39,6 @@ const ContactList = () => {
     }
   };
 
-  // Filter contacts based on search query
   const filteredContacts = contacts.filter((contact) => {
     return (
       contact.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -55,47 +51,37 @@ const ContactList = () => {
     );
   });
 
-  // Items per page for pagination (set to 8 as per your request)
   const itemsPerPage = 8;
 
-  // Paginated contacts (sliced based on the current page)
   const paginatedContacts = filteredContacts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
 
-  // Handle the "Next" button
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  // Handle the "Prev" button
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  // Handle adding a new contact
   const handleAddContact = async (newContact) => {
     try {
-      // Assuming newContact is the contact object we want to add
       await axios.post("https://contact-dtdz.onrender.com/api/contacts/add", newContact);
 
-      // After adding, fetch contacts again to update the list
       const response = await axios.get("https://contact-dtdz.onrender.com/api/contacts");
       const updatedContacts = response.data.contacts;
       setContacts(updatedContacts);
 
-      // Recalculate totalPages after adding a contact
       const newTotalPages = Math.ceil(updatedContacts.length / itemsPerPage);
 
-      // If we were on the last page and the new contact pushes us to the next page, increment the current page
       if (currentPage < newTotalPages) {
         setCurrentPage(currentPage + 1);
       }
@@ -148,7 +134,6 @@ const ContactList = () => {
                   <td className="px-4 py-2 text-white">{contact.address}</td>
                   <td className="px-4 py-2">
                     <div className="flex space-x-2">
-                      {/* Edit Button */}
                       <Link
                         to={`/edit/${contact.contact_id}`}
                         className="bg-[#00275a] text-white px-3 py-1 rounded hover:bg-[#31527c]"
@@ -156,7 +141,6 @@ const ContactList = () => {
                         Edit
                       </Link>
 
-                      {/* Delete Button */}
                       <button
                         onClick={() => handleDelete(contact.contact_id)}
                         className="bg-[#00275a] text-white px-3 py-1 rounded hover:bg-[#31527c]"

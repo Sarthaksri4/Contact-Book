@@ -25,14 +25,12 @@ const AddContact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Ensure required fields are filled
       if (!contact.firstname || !contact.email || !contact.phonenumber1) {
         setError("Please fill in all required fields.");
         return;
       }
-      setError(null); // Clear previous errors
+      setError(null); 
       
-      // Add the contact
       const response = await axios.post(
         "https://contact-dtdz.onrender.com/api/contacts/add",
         contact,
@@ -41,7 +39,6 @@ const AddContact = () => {
 
       console.log("Contact added successfully:", response.data);
 
-      // Redirect to the /contacts page
       navigate("/contacts", { state: { reloadContacts: true } });
     } catch (error) {
       console.error("Error adding contact", error);

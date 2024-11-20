@@ -48,13 +48,4 @@ exports.deleteContact = async (req, res) => {
     }
 };
 
-// exports.searchContact = async (req, res) => {
-//     try {
-//         const { query } = req.query;
-//         const contacts = await ContactModel.searchContacts(query);
-//         res.status(200).json({ success: true, contacts });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ success: false, message: "Failed to search contacts" });
-//     }
-// };
+
