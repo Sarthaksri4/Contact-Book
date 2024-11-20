@@ -33,7 +33,7 @@ const AddContact = () => {
 
       // Add the contact
       const response = await axios.post(
-        "http://localhost:3000/api/contacts/add",
+        "https://contact-dtdz.onrender.com/api/contacts/add",
         contact,
         { withCredentials: true }
       );

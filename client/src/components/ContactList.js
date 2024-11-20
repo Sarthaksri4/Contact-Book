@@ -13,7 +13,7 @@ const ContactList = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/contacts");
+        const response = await axios.get("https://contact-dtdz.onrender.com/api/contacts");
         setContacts(Array.isArray(response.data.contacts) ? response.data.contacts : []);
       } catch (error) {
         console.error("Error fetching contacts", error);
@@ -33,7 +33,7 @@ const ContactList = () => {
     const confirmation = window.confirm("Are you sure you want to delete this contact?");
     if (confirmation) {
       try {
-        await axios.delete(`http://localhost:3000/api/contacts/delete/${contactId}`);
+        await axios.delete(`https://contact-dtdz.onrender.com/api/contacts/delete/${contactId}`);
         // Directly remove the deleted contact from the contacts state
         setContacts(contacts.filter((contact) => contact.contact_id !== contactId));
       } catch (error) {
@@ -85,10 +85,10 @@ const ContactList = () => {
   const handleAddContact = async (newContact) => {
     try {
       // Assuming newContact is the contact object we want to add
-      await axios.post("http://localhost:3000/api/contacts/add", newContact);
+      await axios.post("https://contact-dtdz.onrender.com/api/contacts/add", newContact);
 
       // After adding, fetch contacts again to update the list
-      const response = await axios.get("http://localhost:3000/api/contacts");
+      const response = await axios.get("https://contact-dtdz.onrender.com/api/contacts");
       const updatedContacts = response.data.contacts;
       setContacts(updatedContacts);
 

@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", formData);
+      const response = await axios.post("https://contact-dtdz.onrender.com/api/auth/login", formData);
       localStorage.setItem("token", response.data.token);
       alert("Login successful!");
       navigate("/contacts");

@@ -14,7 +14,7 @@ const Signup = () => {
 
   const handleSendOtp = async () => {
     try {
-      await axios.post("http://localhost:3000/api/auth/sendotp", {
+      await axios.post("https://contact-dtdz.onrender.com/api/auth/sendotp", {
         email: formData.email,
       });
       setOtpSent(true);
@@ -26,7 +26,7 @@ const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      await axios.post("http://localhost:3000/api/auth/signup", {
+      await axios.post("https://contact-dtdz.onrender.com/api/auth/signup", {
         ...formData,
         otp,
       });

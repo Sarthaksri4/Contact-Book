@@ -21,7 +21,7 @@ const EditContact = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await axios.get(`http://localhost:3000/api/contacts/${id}`, {
+        const response = await axios.get(`https://contact-dtdz.onrender.com/api/contacts/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -66,7 +66,7 @@ const EditContact = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/contacts/edit/${id}`,
+        `https://contact-dtdz.onrender.com/api/contacts/edit/${id}`,
         contact,
         {
           withCredentials: true
