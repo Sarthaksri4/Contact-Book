@@ -11,6 +11,7 @@ const AddContact = () => {
     phonenumber1: "",
     phonenumber2: "",
     address: "",
+    token: localStorage.getItem('token')
   });
 
   const [error, setError] = useState(null);
@@ -30,7 +31,7 @@ const AddContact = () => {
         return;
       }
       setError(null); // Clear previous errors
-
+      
       // Add the contact
       const response = await axios.post(
         "https://contact-dtdz.onrender.com/api/contacts/add",
