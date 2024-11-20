@@ -21,7 +21,6 @@ exports.addContact = async (req, contactData) => {
 
 exports.updateContact = async (id, contactData) => {
     const { firstname, middlename, lastname, email, phonenumber1, phonenumber2, address } = contactData;
-   const id = 2;
     await conn.query(
       "UPDATE contacts SET firstname = ?, middlename = ?, lastname = ?, email = ?, phonenumber1 = ?, phonenumber2 = ?, address = ? WHERE contact_id = ?",
       [firstname, middlename, lastname, email, phonenumber1, phonenumber2, address, id]
