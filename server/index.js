@@ -3,24 +3,29 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const contactRoutes = require("./routes/contact")
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 
+const corsOptions = {
+  origin: "http://localhost:3001",
+  credentials: true, 
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
+app.use(cookieParser()); 
 
 const createClient = require("./config/db");
 
-// Initialize the client
 let conn;
 
 (async () => {
   try {
-    conn = await createClient(); // Create and reuse the client connection
+    conn = await createClient(); 
   } catch (err) {
     console.error("Error initializing database client:", err);
   }
   finally{
     
-    // const data = await conn.execute('select * from otps')
+    // const data = await conn.execute('select * from contacts')
     // console.log(data);
     
   }
@@ -34,6 +39,9 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactRoutes);
+app.get('/', async(req, res)=>{
+  res.status(200).json({"msg": "server running"})
+})
 
 
 

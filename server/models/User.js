@@ -1,6 +1,5 @@
 const createClient = require("../config/db");
 
-// Initialize the client
 let conn;
 
 (async () => {
@@ -17,7 +16,6 @@ async function findUserByEmail(email) {
   return rows.length > 0 ? rows[0] : null;
 }
 
-// Create a new user
 async function createUser(email, password) {
   await conn.query("INSERT INTO auth (email, password) VALUES (?, ?)", [
     email,

@@ -3,7 +3,7 @@ const ContactModel = require("../models/contact");
 exports.addContact = async (req, res) => {
     try {
         const contactData = req.body;
-        const id = await ContactModel.addContact(contactData);
+        const id = await ContactModel.addContact(req, contactData);
         res.status(201).json({ success: true, message: "Contact added successfully", id });
     } catch (error) {
         console.error(error);
@@ -38,6 +38,8 @@ exports.getContacts = async (req, res) => {
 exports.deleteContact = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(id);
+        
         await ContactModel.DeleteContact(id);
         res.status(200).json({ success: true, message: "Contact deleted successfully" });
     } catch (error) {
@@ -46,13 +48,13 @@ exports.deleteContact = async (req, res) => {
     }
 };
 
-exports.searchContact = async (req, res) => {
-    try {
-        const { query } = req.query;
-        const contacts = await ContactModel.searchContacts(query);
-        res.status(200).json({ success: true, contacts });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Failed to search contacts" });
-    }
-};
+// exports.searchContact = async (req, res) => {
+//     try {
+//         const { query } = req.query;
+//         const contacts = await ContactModel.searchContacts(query);
+//         res.status(200).json({ success: true, contacts });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ success: false, message: "Failed to search contacts" });
+//     }
+// };

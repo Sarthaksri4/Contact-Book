@@ -9,7 +9,7 @@ let conn;
   }
 })();
 
-exports.addContact = async (contactData) => {
+exports.addContact = async (req, contactData) => {
     const { firstname, middlename, lastname, email, phonenumber1, phonenumber2, address } = contactData;
     const user_id = req.user_id
     const [result] = await conn.query(
@@ -20,30 +20,34 @@ exports.addContact = async (contactData) => {
 };
 
 exports.updateContact = async (id, contactData) => {
-    const { firstname, middlename, lastname, email, password, phonenumber1, phonenumber2, address } = contactData;
+    const { firstname, middlename, lastname, email, phonenumber1, phonenumber2, address } = contactData;
+  
     await conn.query(
-        "UPDATE auth SET firstname = ?, middlename = ?, lastname = ?, email = ?, password = ?, phonenumber1 = ?, phonenumber2 = ?, address = ? WHERE id = ?",
-        [firstname, middlename, lastname, email, password, phonenumber1, phonenumber2, address, id]
+      "UPDATE contacts SET firstname = ?, middlename = ?, lastname = ?, email = ?, phonenumber1 = ?, phonenumber2 = ?, address = ? WHERE contact_id = ?",
+      [firstname, middlename, lastname, email, phonenumber1, phonenumber2, address, id]
     );
-};
+  };
+  
 
 exports.getAllContacts = async (limit, offset) => {
     const [contacts] = await conn.query(
-        "SELECT * FROM auth ORDER BY firstname, lastname LIMIT ? OFFSET ?",
+        "SELECT * FROM contacts ORDER BY firstname, lastname LIMIT ? OFFSET ?",
         [limit, offset]
     );
     return contacts;
 };
 
 exports.DeleteContact = async (id) => {
-    await conn.query("delete from auth WHERE id = ?", [id]);
+    console.log('sdfga');
+    
+    await conn.query("delete from contacts WHERE contact_id = ?", [id]);
 };
 
-exports.searchContacts = async (query) => {
-    const [contacts] = await conn.query(
-        `SELECT * FROM auth WHERE 
-        (firstname LIKE ? OR middlename LIKE ? OR lastname LIKE ? OR email LIKE ? OR phonenumber1 LIKE ? OR phonenumber2 LIKE ? OR address LIKE ?)`,
-        [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`]
-    );
-    return contacts;
-};
+// exports.searchContacts = async (query) => {
+//     const [contacts] = await conn.query(
+//         `SELECT * FROM contacts WHERE 
+//         (firstname LIKE ? OR middlename LIKE ? OR lastname LIKE ? OR email LIKE ? OR phonenumber1 LIKE ? OR phonenumber2 LIKE ? OR address LIKE ?)`,
+//         [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`]
+//     );
+//     return contacts;
+// };

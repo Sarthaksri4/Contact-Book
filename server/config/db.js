@@ -1,7 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql2/promise');
 
-// Function to create a client
 async function createClient() {
   try {
     const conn = await mysql.createConnection({
