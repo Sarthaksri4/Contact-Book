@@ -6,7 +6,7 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 
 const corsOptions = {
-  origin: "http://localhost:3001",
+  origin: "*",
   credentials: true, 
 };
 
