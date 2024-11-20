@@ -11,7 +11,7 @@ let conn;
 
 exports.addContact = async (req, contactData) => {
     const { firstname, middlename, lastname, email, phonenumber1, phonenumber2, address } = contactData;
-    const user_id = req.user_id
+    const user_id = 2;
     const [result] = await conn.query(
         "INSERT INTO contacts (firstname, middlename, lastname, email, phonenumber1, phonenumber2, address, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         [firstname, middlename, lastname, email, phonenumber1, phonenumber2, address, user_id]
@@ -21,7 +21,7 @@ exports.addContact = async (req, contactData) => {
 
 exports.updateContact = async (id, contactData) => {
     const { firstname, middlename, lastname, email, phonenumber1, phonenumber2, address } = contactData;
-  
+   const id = 2;
     await conn.query(
       "UPDATE contacts SET firstname = ?, middlename = ?, lastname = ?, email = ?, phonenumber1 = ?, phonenumber2 = ?, address = ? WHERE contact_id = ?",
       [firstname, middlename, lastname, email, phonenumber1, phonenumber2, address, id]
